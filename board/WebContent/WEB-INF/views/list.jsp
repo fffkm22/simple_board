@@ -62,7 +62,6 @@
             </div>
             	<% 
 					int pageN = (int) request.getAttribute("lastP");            	
-            		System.out.println(pageN);
             		int curPage = 1;
             		
             		try {
@@ -124,7 +123,6 @@
             </div>
             <div class="bt_wrap">
                 <a href="${pageContext.request.contextPath}/write" class="on">등록</a>
-                <!--<a href="#">수정</a>-->
             </div>
         </div>
     </div>
