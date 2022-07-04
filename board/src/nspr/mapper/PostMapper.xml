@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nspr.mapper.PostMapper">
+	<resultMap type="nspr.model.Post" id="postResultMap">
+		<result property="post_title" column="post_title" />
+		<result property="post_writer" column="post_writer" />
+		<result property="post_password" column="post_password" />
+		<result property="post_content" column="post_content" />
+		<result property="post_date" column="post_date" />
+	</resultMap>
+	
+	<resultMap type="nspr.model.PageNumber" id="pageResultMap">
+		<result property="postCount" column="count(*)" />
+	</resultMap>
+
+	<insert id="insertPost">
+		INSERT INTO board_project.post (post_title,	post_writer, post_password, post_content, post_date) 
+		VALUES (#{post_title}, #{post_writer}, #{post_password}, #{post_content}, #{post_date});
+	</insert>
+
+	<select id="selectLast10" resultMap="postResultMap">
+		SELECT * FROM board_project.post ORDER BY post_num DESC limit 10 offset #{page};
+	</select>
+
+	<select id="selectPostByNum" resultMap="postResultMap">
+		SELECT * FROM board_project.post WHERE post_num = #{post_num};
+	</select>
+
+	<update id="updateHits">
+		UPDATE board_project.post 
+		SET post_hits = #{post_hits}
+		WHERE post_num = #{post_number};
+	</update>
+	
+	<update id="updatePost">
+		UPDATE board_project.post 
+		SET post_title = #{post_title}, post_writer = #{post_writer}, 
+			post_password = #{post_password}, post_content = #{post_content} 
+		WHERE post_num = #{post_number};
+	</update>
+
+	<select id="selectCount" resultMap="pageResultMap">
+		SELECT count(*) FROM board_project.post;
+	</select>
+	
+	<delete id="deleteByNum">
+		DELETE FROM board_project.post WHERE post_num = #{id};
+	</delete>
+	
+	
+</mapper>
