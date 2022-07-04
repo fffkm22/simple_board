@@ -60,10 +60,7 @@ public class IndexController {
 		SqlSession session = MyBatisConnectionProvider.getSession();
 		session.insert("nspr.mapper.PostMapper.insertPost", newPost);
 		session.commit();
-
-//		List<Post> list = session.selectList("nspr.mapper.PostMapper.selectLast10");
-//		req.setAttribute("list", list);
-//		session.close();
+		session.close();
 
 		return "redirect:/";
 	}
